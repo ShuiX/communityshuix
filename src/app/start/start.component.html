@@ -1,0 +1,47 @@
+<div *ngIf="userData | async; then authenticated else login">
+    <!-- template will replace this div -->
+</div>
+
+<!-- User NOT logged in -->
+<ng-template #login>
+    <div class="startscreen">
+        <span class="text1">Welcome</span>
+        <span class="text2">to the Community SandBox</span>
+        <div style="margin-top: 40px;">
+            <a href="/login">
+                <button class="login-button" mat-fab color="primary">
+                    <span>Sign In</span>
+                </button>
+            </a>
+        </div>
+    </div>
+</ng-template>
+
+
+<!-- User logged in -->
+<ng-template #authenticated>
+    <div class="card-container" *ngIf="userData | async as user">
+        <div class="upper-container">
+            <div class="image-container">
+                <img [src]="user.photoURL" />
+            </div>
+        </div>
+        <div class="lower-container">
+            <div>
+                <br>
+                <h3>{{ user.displayName }}</h3>
+            </div>
+            <div>
+                <br>
+                <h4>Welcome back User
+                </h4>
+                <br><br>
+            </div>
+            <div>
+                <a href="/home" class="btn">Let's go!</a>
+            </div>
+            <br>
+            <button mat-raised-button (click)="auth.signOut()" color="warn">Sign Out</button>
+        </div>
+    </div>
+</ng-template>

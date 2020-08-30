@@ -1,0 +1,89 @@
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Login">
+        <div class="div-screen">
+            <div fxLayoutAlign="center center" fxFlexFill class="login-div">
+                <mat-card fxFlex="25" fxFlex.sm="70" fxFlex.xs="80">
+                    <mat-toolbar color="primary">Login</mat-toolbar>
+                    <form [formGroup]="loginFormGroup" fxLayoutAlign="stretch" fxLayout="column" class="login-form"
+                        (ngSubmit)="signIn()">
+                        <mat-form-field>
+                            <mat-label>E-Mail</mat-label>
+                            <input matInput formControlName="emailFormControl" placeholder="Type in E-Mail" required
+                                name="email">
+                            <mat-error
+                                *ngIf="loginFormGroup.get('emailFormControl').hasError('email') && !loginFormGroup.get('emailFormControl').hasError('required')">
+                                Please enter a valid email address
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Password</mat-label>
+                            <input type="password" matInput formControlName="passwordFormControl"
+                                placeholder="Type in Password" required name="password">
+                        </mat-form-field>
+                        <button mat-raised-button color="accent">Login</button>
+                    </form>
+                </mat-card>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Register">
+        <div class="div-screen">
+            <div fxLayoutAlign="center center" fxFlexFill class="login-div">
+                <mat-card fxFlex="25" fxFlex.sm="70" fxFlex.xs="80">
+                    <mat-toolbar color="primary">Register</mat-toolbar>
+                    <form [formGroup]="registerFormGroup" fxLayoutAlign="stretch" fxLayout="column" class="login-form"
+                        (ngSubmit)="register()">
+                        <mat-form-field>
+                            <mat-label>Username</mat-label>
+                            <input required matInput formControlName="usernameFormControl"
+                                placeholder="Enter in a Username" name="username">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Photo URL</mat-label>
+                            <input required matInput formControlName="photoURLFormControl"
+                                placeholder="Enter in Photo URL" name="photoURL">
+                            <mat-hint>Change and put your Photo URL</mat-hint>
+                        </mat-form-field>
+                        <mat-error
+                            *ngIf="registerFormGroup.get('photoURLFormControl').hasError('required')">
+                            <strong>WHY DID YOU DELETE THE PHOTO URL?</strong>
+                        </mat-error>
+                        <mat-error
+                            *ngIf="registerFormGroup.get('photoURLFormControl').hasError('photoURL') && !registerFormGroup.get('photoURLFormControl').hasError('required')">
+                            This URL is not acceptable
+                        </mat-error>
+                        <mat-form-field>
+                            <mat-label>E-Mail</mat-label>
+                            <input required matInput formControlName="emailFormControl"
+                                placeholder="Type in your E-Mail" name="email">
+                            <mat-error
+                                *ngIf="registerFormGroup.get('emailFormControl').hasError('email') && !registerFormGroup.get('emailFormControl').hasError('required')">
+                                Please enter a valid email address
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Password</mat-label>
+                            <input required type="password" matInput formControlName="passwordFormControl"
+                                [(ngModel)]="password" placeholder="Type in Password" name="password">
+                            <mat-hint>Password requires more than 6 characters</mat-hint>
+                            <mat-error
+                                *ngIf="registerFormGroup.get('passwordFormControl').hasError('minlength') && !registerFormGroup.get('passwordFormControl').hasError('required')">
+                                Password <strong>requires</strong> more than 6 characters
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Re:Password</mat-label>
+                            <input required type="password" matInput formControlName="rePasswordFormControl"
+                                placeholder="Type in your Password again" name="rePassword">
+                            <mat-error
+                                *ngIf="registerFormGroup.get('rePasswordFormControl').hasError('rePassword') && !registerFormGroup.get('rePasswordFormControl').hasError('required')">
+                                The passwords <strong>do not match</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <button mat-raised-button color="accent">Register</button>
+                    </form>
+                </mat-card>
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>
