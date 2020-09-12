@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { CdkVirtualScrollViewport } from "@angular/cdk/scrolling";
+import { BehaviorSubject, Observable, ObservableInput } from 'rxjs';
+import { tap, map, throttleTime, mergeMap, scan } from 'rxjs/operators';
+import { Post } from '../services/post.model';
+
 
 @Component({
   selector: 'app-home',
@@ -8,10 +13,62 @@ import { AuthService } from '../services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public auth: AuthService) { }
+  @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
+
+  theEnd = false;
+
+  offset = new BehaviorSubject(null);
+
+  infinite: Observable<Post[]>;
+
+  constructor(private auth: AuthService) {
+
+    const batchMap = this.offset.pipe(
+      throttleTime(500),
+      mergeMap(n => this.getBatch(n)),
+      scan((acc, batch) => {
+        return { ...acc, ...batch };
+      }),
+    );
+
+    this.infinite = batchMap.pipe(
+      map(v => Object.values(v)),
+    );
+  }
 
   ngOnInit(): void {
 
+  }
+
+  nextBatch(e, offset): void {
+    if (this.theEnd) {
+      return;
+    }
+
+    const end = this.viewport.getRenderedRange().end;
+    const total = this.viewport.getDataLength();
+
+    if (end === total) {
+      this.offset.next(offset);
+    }
+
+  }
+
+  getBatch(lasteseen: string): ObservableInput<any> {
+    return this.auth.getPosts(lasteseen).pipe(
+      tap(arr => (arr.length ? null : (this.theEnd = true))),
+      map(arr => {
+        return arr.reduce((acc, cur) => {
+          const id = cur.payload.doc.id;
+          const data = cur.payload.doc.data();
+          return { ...acc, [id]: data }
+        }, {})
+      }),
+    );
+  }
+
+  trackByIdx(i) {
+    return i;
   }
 
 }

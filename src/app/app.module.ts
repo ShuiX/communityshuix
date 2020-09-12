@@ -22,6 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogsComponent } from './dialogs/dialogs.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ChattingComponent } from './chatting/chatting.component';
+import { ScrollingModule } from "@angular/cdk/scrolling";
 
 const config = {
   apiKey: "AIzaSyA-ZzXeKJgHwoIKGN3S9RKUE2KJzpIKSvI",
@@ -60,7 +61,8 @@ const config = {
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatTabsModule
+    MatTabsModule,
+    ScrollingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

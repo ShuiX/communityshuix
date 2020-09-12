@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from './user.model';
+import { Post } from './post.model';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
@@ -47,6 +48,10 @@ export class AuthService {
         }
       })
     );
+  }
+
+  getPosts(lastseen: string): Observable<DocumentChangeAction<unknown>[]> {
+    return this.afs.collection("posts", ref => ref.orderBy("title").startAfter(lastseen).limit(10)).snapshotChanges();
   }
 
   signOut(): void {

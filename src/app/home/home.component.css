@@ -1,0 +1,9 @@
+mat-card {
+  height: 100px;
+  width: 200px;
+  margin: 100px;
+}
+
+cdk-virtual-scroll-viewport {
+  height: 90vh;
+}

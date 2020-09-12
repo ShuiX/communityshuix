@@ -1,1 +1,16 @@
-<h1>HELLO</h1>
+<ng-container *ngIf="infinite | async as posts">
+  yes
+  
+  <cdk-virtual-scroll-viewport itemSize="20">
+
+    <mat-card *cdkVirtualFor="let post of posts; let i = index; trackBy: trackByIdx" itemsize="100"
+      (scrolledIndexChange)="nextBatch($event, (posts[posts.length - 1].title))">
+
+      {{ post.title }}
+      
+      {{ post.description }}
+
+    </mat-card>
+
+  </cdk-virtual-scroll-viewport>
+</ng-container>
