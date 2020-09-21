@@ -3,6 +3,5 @@ export interface User {
     email: string;
     photoURL?: string;
     displayName?: string;
-    following?: [];
-    liked?: [];
+    myCustomData?: string;
   }

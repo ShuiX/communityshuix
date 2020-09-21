@@ -4,11 +4,10 @@ import { User } from './user.model';
 import { Post } from './post.model';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogsComponent } from '../dialogs/dialogs.component';
-import { async } from 'rxjs/internal/scheduler/async';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +20,6 @@ export class AuthService {
     private router: Router,
     private dialog: MatDialog
   ) { }
-
-  userFollowers = new BehaviorSubject(null);
 
   signInWithEmail(email: string, password: string): Promise<firebase.auth.UserCredential> {
     return this.afAuth.signInWithEmailAndPassword(email, password);
@@ -46,7 +43,6 @@ export class AuthService {
     return this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
-          this.afs.doc<any>(`users/${user.uid}`).valueChanges().subscribe(val => this.userFollowers.next(val.following));
           return this.afs.doc<any>(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
@@ -56,7 +52,7 @@ export class AuthService {
   }
 
   getPosts(lastseen: string): Observable<DocumentChangeAction<unknown>[]> {
-    return this.afs.collection("posts", ref => ref.where("createdByUID", "in", this.userFollowers.value).orderBy("postDate").startAfter(lastseen).limit(10)).snapshotChanges();
+    return this.afs.collection("posts", ref => ref.orderBy("title").startAfter(lastseen).limit(10)).snapshotChanges();
   }
 
   signOut(): void {
