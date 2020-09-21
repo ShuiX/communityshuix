@@ -1,16 +1,42 @@
 <ng-container *ngIf="infinite | async as posts">
-  yes
-  
-  <cdk-virtual-scroll-viewport itemSize="20">
 
-    <mat-card *cdkVirtualFor="let post of posts; let i = index; trackBy: trackByIdx" itemsize="100"
-      (scrolledIndexChange)="nextBatch($event, (posts[posts.length - 1].title))">
+<ng-container *ngIf="isMobile | async; then mobile else desktop">
 
-      {{ post.title }}
-      
-      {{ post.description }}
+</ng-container>
 
-    </mat-card>
+  <ng-template #mobile>
 
-  </cdk-virtual-scroll-viewport>
+    <cdk-virtual-scroll-viewport itemSize="400">
+
+      <mat-card class="mobile-card" *cdkVirtualFor="let post of posts; let i = index; trackBy: trackByIdx"
+        (scrolledIndexChange)="nextBatch($event, (posts[posts.length - 1].title))">
+
+        <h1> {{ post.title }} </h1>
+
+        {{ post.description }}
+
+      </mat-card>
+
+    </cdk-virtual-scroll-viewport>
+
+  </ng-template>
+
+
+  <ng-template #desktop>
+
+    <cdk-virtual-scroll-viewport itemSize="750">
+
+      <mat-card class="desktop-card" *cdkVirtualFor="let post of posts; let i = index; trackBy: trackByIdx"
+        (scrolledIndexChange)="nextBatch($event, (posts[posts.length - 1].title))">
+
+        <h1> {{ post.title }} </h1>
+
+        {{ post.description }}
+
+      </mat-card>
+
+    </cdk-virtual-scroll-viewport>
+
+  </ng-template>
+
 </ng-container>

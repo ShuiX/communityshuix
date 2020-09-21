@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { CdkVirtualScrollViewport } from "@angular/cdk/scrolling";
 import { BehaviorSubject, Observable, ObservableInput } from 'rxjs';
@@ -19,6 +19,8 @@ export class HomeComponent implements OnInit {
 
   offset = new BehaviorSubject(null);
 
+  isMobile = new BehaviorSubject<boolean>(null);
+
   infinite: Observable<Post[]>;
 
   constructor(private auth: AuthService) {
@@ -38,6 +40,21 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if (window.screen.width < 720) {
+      this.isMobile.next(true);
+    } else {
+      this.isMobile.next(null);
+    }
+
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if (event.target.innerWidth < 720) {
+      this.isMobile.next(true);
+    } else {
+      this.isMobile.next(null);
+    }
   }
 
   nextBatch(e, offset): void {

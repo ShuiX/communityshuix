@@ -1,9 +1,20 @@
-mat-card {
-  height: 100px;
-  width: 200px;
-  margin: 100px;
+.desktop-card {
+  height: 600px;
+  width: 60%;
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-bottom: 100px;
+}
+
+.mobile-card {
+  width: 80%;
+  height: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 100px;
+  margin-top: 50px;
 }
 
 cdk-virtual-scroll-viewport {
-  height: 90vh;
+  height: 93.2vh;
 }
