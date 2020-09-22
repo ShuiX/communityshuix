@@ -32,8 +32,7 @@ export class AuthService {
           displayName: username,
           email: email,
           photoURL: photoURL,
-          uid: val.user.uid,
-          following: ["67dA5K2QKaWwPJbVx4wrF79Dii13"]
+          uid: val.user.uid
         }
       ),
     );
