@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-  getBatch(lasteseen: string): ObservableInput<any> {
+  getBatch(lasteseen: number): ObservableInput<any> {
     return this.auth.getPosts(lasteseen).pipe(
       tap(arr => (arr.length ? null : (this.theEnd = true))),
       map(arr => {

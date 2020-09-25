@@ -1,3 +1,5 @@
+import { firestore } from 'firebase';
+
 export interface User {
     uid: string;
     email: string;
@@ -5,4 +7,5 @@ export interface User {
     displayName?: string;
     following?: [];
     liked?: [];
+    joined: number;
   }

@@ -9,7 +9,7 @@
     <cdk-virtual-scroll-viewport itemSize="400">
 
       <mat-card class="mobile-card" *cdkVirtualFor="let post of posts; let i = index; trackBy: trackByIdx"
-        (scrolledIndexChange)="nextBatch($event, (posts[posts.length - 1].title))">
+        (scrolledIndexChange)="nextBatch($event, (posts[posts.length - 1].postDate))">
 
         <h1> {{ post.title }} </h1>
 
@@ -27,7 +27,7 @@
     <cdk-virtual-scroll-viewport itemSize="750">
 
       <mat-card class="desktop-card" *cdkVirtualFor="let post of posts; let i = index; trackBy: trackByIdx"
-        (scrolledIndexChange)="nextBatch($event, (posts[posts.length - 1].title))">
+        (scrolledIndexChange)="nextBatch($event, (posts[posts.length - 1].postDate))">
 
         <h1> {{ post.title }} </h1>
 

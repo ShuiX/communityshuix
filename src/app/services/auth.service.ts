@@ -52,8 +52,12 @@ export class AuthService {
     );
   }
 
-  getPosts(lastseen: string): Observable<DocumentChangeAction<unknown>[]> {
-    return this.afs.collection("posts", ref => ref.where("createdByUID", "in", this.userFollowers.value).orderBy("postDate").startAfter(lastseen).limit(10)).snapshotChanges();
+  getPosts(lastseen: number): Observable<DocumentChangeAction<unknown>[]> {
+    if (lastseen == null) {
+      return this.afs.collection("posts", ref => ref.where("createdByUID", "in", this.userFollowers.value).orderBy("postDate", "desc").limit(10)).snapshotChanges();
+    } else {
+      return this.afs.collection("posts", ref => ref.where("createdByUID", "in", this.userFollowers.value).orderBy("postDate", "desc").startAfter(lastseen).limit(10)).snapshotChanges(); 
+    }
   }
 
   signOut(): void {
