@@ -15,6 +15,20 @@
   margin-top: 50px;
 }
 
+.float{
+	position:absolute;
+	width:20%;
+	height:70%;
+	top:115px;
+	right:8%;
+	background-color:white;
+	color:black;
+	border-radius:10px;
+	text-align:center;
+  box-shadow: 3px 3px 3px 3px #999;
+  overflow: hidden;
+}
+
 cdk-virtual-scroll-viewport {
   height: 93.2vh;
 }

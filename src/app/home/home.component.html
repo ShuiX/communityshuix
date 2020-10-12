@@ -1,8 +1,8 @@
 <ng-container *ngIf="infinite | async as posts">
 
-<ng-container *ngIf="isMobile | async; then mobile else desktop">
+  <ng-container *ngIf="isMobile | async; then mobile else desktop">
 
-</ng-container>
+  </ng-container>
 
   <ng-template #mobile>
 
@@ -36,6 +36,12 @@
       </mat-card>
 
     </cdk-virtual-scroll-viewport>
+
+    <div class="float">
+      
+      
+
+    </div>
 
   </ng-template>
 
