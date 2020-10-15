@@ -1,2 +1,2 @@
 # communityshuix
- Community Project madewith Angular
+ Community Project made with Angular
