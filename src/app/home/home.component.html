@@ -13,7 +13,7 @@
 
         <h1> {{ post.title }} </h1>
 
-        {{ post.description }}
+        <p>{{ post.description }}</p>
 
       </mat-card>
 
@@ -31,15 +31,17 @@
 
         <h1> {{ post.title }} </h1>
 
-        {{ post.description }}
+        <p>{{ post.description }}</p>
+
+        {{ post.userData.displayName }}
 
       </mat-card>
 
     </cdk-virtual-scroll-viewport>
 
     <div class="float">
-      
-      
+
+
 
     </div>
 

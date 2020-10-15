@@ -1,9 +1,22 @@
+h1 {
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
 .desktop-card {
   height: 600px;
   width: 60%;
   margin-top: 50px;
   margin-left: 50px;
   margin-bottom: 100px;
+}
+
+.desktop-card h1 {
+  font-size: 200%;
+}
+
+.desktop-card p {
+  font-size: 130%;
 }
 
 .mobile-card {
@@ -15,10 +28,14 @@
   margin-top: 50px;
 }
 
+.mobile-card p {
+  font-size: 120%;
+}
+
 .float{
 	position:absolute;
 	width:20%;
-	height:70%;
+	height:75%;
 	top:115px;
 	right:8%;
 	background-color:white;
