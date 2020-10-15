@@ -4,6 +4,7 @@ import { CdkVirtualScrollViewport } from "@angular/cdk/scrolling";
 import { BehaviorSubject, Observable, ObservableInput } from 'rxjs';
 import { tap, map, throttleTime, mergeMap, scan } from 'rxjs/operators';
 import { Post } from '../services/post.model';
+import { User } from 'firebase';
 
 
 @Component({
@@ -78,6 +79,8 @@ export class HomeComponent implements OnInit {
         return arr.reduce((acc, cur) => {
           const id = cur.payload.doc.id;
           const data = cur.payload.doc.data();
+          data.userData = { displayName: "loading", photoURL: "https://e7.pngegg.com/pngimages/876/963/png-clipart-silhouette-human-head-person-shadow-face-animals.png" };
+          this.auth.getUserData(data.createdByUID).toPromise().then(val => data.userData = val.data());
           return { ...acc, [id]: data }
         }, {})
       }),

@@ -52,11 +52,15 @@ export class AuthService {
     );
   }
 
-  getPosts(lastseen: number): Observable<DocumentChangeAction<unknown>[]> {
+  getUserData(uid: string): Observable<any> {
+    return this.afs.collection("users").doc(uid).get();
+  }
+
+  getPosts(lastseen: number): Observable<DocumentChangeAction<any>[]> {
     if (lastseen == null) {
       return this.afs.collection("posts", ref => ref.where("createdByUID", "in", this.userFollowers.value).orderBy("postDate", "desc").limit(10)).snapshotChanges();
     } else {
-      return this.afs.collection("posts", ref => ref.where("createdByUID", "in", this.userFollowers.value).orderBy("postDate", "desc").startAfter(lastseen).limit(10)).snapshotChanges(); 
+      return this.afs.collection("posts", ref => ref.where("createdByUID", "in", this.userFollowers.value).orderBy("postDate", "desc").startAfter(lastseen).limit(10)).snapshotChanges();
     }
   }
 
