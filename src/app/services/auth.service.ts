@@ -33,7 +33,10 @@ export class AuthService {
           displayName: username,
           email: email,
           photoURL: photoURL,
-          uid: val.user.uid
+          uid: val.user.uid,
+          joined: Date.now(),
+          liked: [],
+          following: ["67dA5K2QKaWwPJbVx4wrF79Dii13"],
         }
       ),
     );
