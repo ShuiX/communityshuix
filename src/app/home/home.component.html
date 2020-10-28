@@ -15,6 +15,8 @@
 
         <p>{{ post.description }}</p>
 
+        {{ post.userData.displayName }}
+
       </mat-card>
 
     </cdk-virtual-scroll-viewport>
@@ -29,11 +31,13 @@
       <mat-card class="desktop-card" *cdkVirtualFor="let post of posts; let i = index; trackBy: trackByIdx"
         (scrolledIndexChange)="nextBatch($event, (posts[posts.length - 1].postDate))">
 
+        <p class="textcell">posted by <b>{{ post.userData.displayName }}</b> &nbsp;</p>
+
+        <img class="pbpic" [src]="post.userData.photoURL" />
+
         <h1> {{ post.title }} </h1>
 
         <p>{{ post.description }}</p>
-
-        {{ post.userData.displayName }}
 
       </mat-card>
 
