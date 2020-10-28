@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   });
 
   registerFormGroup = new FormGroup({
-    usernameFormControl: new FormControl('', [Validators.required]),
+    usernameFormControl: new FormControl('', [Validators.required, this.userNameValidation]),
     photoURLFormControl: new FormControl('https://i.imgur.com/TGuyPBM.png', [Validators.required, this.photoURLValidation]),
     emailFormControl: new FormControl('', [Validators.required, this.emailValidation]),
     passwordFormControl: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -59,6 +59,13 @@ export class LoginComponent implements OnInit {
   emailValidation(control: AbstractControl): { [key: string]: boolean } | null {
     if (!RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(control.value)) {
       return { 'email': true };
+    }
+    return null;
+  }
+
+  userNameValidation(control: AbstractControl): { [key: string]: boolean } | null {
+    if (control.value.length > 30) {
+      return { "userNameLength": true };
     }
     return null;
   }

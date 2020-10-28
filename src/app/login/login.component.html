@@ -37,21 +37,25 @@
                             <mat-label>Username</mat-label>
                             <input required matInput formControlName="usernameFormControl"
                                 placeholder="Enter in a Username" name="username">
+                            <mat-hint>Username cant have more than 30 letter</mat-hint>
+                            <mat-error
+                                *ngIf="registerFormGroup.get('usernameFormControl').hasError('userNameLength')">
+                                Username has more than 30 letters
+                            </mat-error>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Photo URL</mat-label>
                             <input required matInput formControlName="photoURLFormControl"
                                 placeholder="Enter in Photo URL" name="photoURL">
                             <mat-hint>Change and put your Photo URL</mat-hint>
+                            <mat-error *ngIf="registerFormGroup.get('photoURLFormControl').hasError('required')">
+                                <strong>WHY DID YOU DELETE THE PHOTO URL?</strong>
+                            </mat-error>
+                            <mat-error
+                                *ngIf="registerFormGroup.get('photoURLFormControl').hasError('photoURL') && !registerFormGroup.get('photoURLFormControl').hasError('required')">
+                                This URL is not acceptable
+                            </mat-error>
                         </mat-form-field>
-                        <mat-error
-                            *ngIf="registerFormGroup.get('photoURLFormControl').hasError('required')">
-                            <strong>WHY DID YOU DELETE THE PHOTO URL?</strong>
-                        </mat-error>
-                        <mat-error
-                            *ngIf="registerFormGroup.get('photoURLFormControl').hasError('photoURL') && !registerFormGroup.get('photoURLFormControl').hasError('required')">
-                            This URL is not acceptable
-                        </mat-error>
                         <mat-form-field>
                             <mat-label>E-Mail</mat-label>
                             <input required matInput formControlName="emailFormControl"
